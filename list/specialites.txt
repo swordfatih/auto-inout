@@ -1,0 +1,10 @@
+Cuisine
+Service
+Nettoyage
+Vigile
+Caissier
+Voiturier
+Reparateur
+Secretaire
+Proprietaire
+Portier
