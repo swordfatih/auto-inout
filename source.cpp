@@ -100,7 +100,7 @@ void developpe(std::ofstream& in, Ensemble<Specialite>& specialites)
 /////////////////////////////////////////////////
 void embauche(std::ofstream& in, Ensemble<Specialite>& specialites, Ensemble<Travailleur>& travailleurs)
 {
-	std::uniform_int_distribution<std::mt19937::result_type> distribution_travailleurs_count(0, specialites.max);
+	std::uniform_int_distribution<std::mt19937::result_type> distribution_travailleurs_count(1, specialites.max);
 	std::uniform_int_distribution<std::mt19937::result_type> distribution_travailleurs(0, travailleurs.max - 1);
 
 	for (auto& it: travailleurs.list)
@@ -205,11 +205,14 @@ void tache(std::ofstream& in, Ensemble<Specialite>& specialites, Ensemble<Travai
 			uint16_t indice_specialite = distribution_specialite(random_generator());
 			uint16_t heures_requises = distribution_requise(random_generator());
 
-			commandes.list[i].taches_par_specialite[indice_specialite].nb_heures_requises = heures_requises;
+			if (commandes.list[i].taches_par_specialite[indice_specialite].nb_heures_requises == 0)
+			{
+				commandes.list[i].taches_par_specialite[indice_specialite].nb_heures_requises = heures_requises;
 
-			affect(specialites, travailleurs, commandes, i, indice_specialite);
+				affect(specialites, travailleurs, commandes, i, indice_specialite);
 
-			in << "tache " << commandes.list[i].nom << ' ' << specialites.list[indice_specialite].nom << ' ' << heures_requises << std::endl;
+				in << "tache " << commandes.list[i].nom << ' ' << specialites.list[indice_specialite].nom << ' ' << heures_requises << std::endl;
+			}
 		}
 	}
 }
@@ -269,12 +272,12 @@ void progression(std::ofstream& in, std::ofstream& out, Ensemble<Specialite>& sp
 
 	auto all_done = [&]()
 	{
-		// Puis on vérifie si toutes les commandes sont terminées
+		// Puis on vÃ©rifie si toutes les commandes sont terminÃ©es
 		for (uint16_t t = 0; t < commandes.max; ++t)
 		{
 			if (!commande_done(specialites, commandes, t))
 			{
-				// Une commande n'est pas terminée, on quitte la fonction
+				// Une commande n'est pas terminÃ©e, on quitte la fonction
 				return false;
 			}
 		}
@@ -306,7 +309,7 @@ void progression(std::ofstream& in, std::ofstream& out, Ensemble<Specialite>& sp
 
 					if (commandes.list[j].taches_par_specialite[k].nb_heures_effectuees >= commandes.list[j].taches_par_specialite[k].nb_heures_requises)
 					{
-						// On verifie si la commande en entier est terminée
+						// On verifie si la commande en entier est terminÃ©e
 						if (commande_done(specialites, commandes, j))
 						{
 							// Si elle l'est, on la facture
@@ -388,7 +391,7 @@ int main()
 	}
 	else
 	{
-		std::cout << "Il tient de signaler à sa Majesté le Roy de l'occurence inédite d'innatendu naufrage fonctionnel. (config manquant)" << std::endl;
+		std::cout << "Il tient de signaler Ã  sa MajestÃ© le Roy de l'occurence inÃ©dite d'innatendu naufrage fonctionnel. (config manquant)" << std::endl;
 	}
 
 	fill(specialites, "specialites");
@@ -414,7 +417,7 @@ int main()
 	}
 	else
 	{
-		std::cout << "Il tient de signaler à sa Majesté le Roy de l'occurence inédite d'innatendu naufrage fonctionnel. (in/out ne peut être crée)" << std::endl;
+		std::cout << "Il tient de signaler Ã  sa MajestÃ© le Roy de l'occurence inÃ©dite d'innatendu naufrage fonctionnel. (in/out ne peut Ãªtre crÃ©e)" << std::endl;
 	}
 
 	return 0;
