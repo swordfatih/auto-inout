@@ -1,2 +1,2 @@
-# robocop
-Générateur aléatoire de in/out pour le projet d'IAP.
+# robocop (personnal use)
+Random in/out generator for database testing. 
