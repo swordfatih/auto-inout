@@ -530,7 +530,7 @@ int main()
 		std::cout << "Robocop pense qu'il est bidon, il a etonnament trouve " << error_count << " erreur(s) dans votre magnifique programme." << std::endl;
 	}
 
-	std::cout << "Robocop a ainsi termine d'examiner votre code. N'hesitez pas a contacter Fatih en cas de soucis." << std::endl;
+	std::cout << "Robocop a ainsi termine d'examiner votre code." << std::endl;
 
 	return 0;
 }
